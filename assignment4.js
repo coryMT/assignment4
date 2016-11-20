@@ -15,3 +15,47 @@
   // Magic!
   console.log('Keepin\'n it clean with an external script!');
 })();
+
+$('#searchField').keyup(function() {
+  $('#results').empty();
+
+  var searchTerm = $('#searchField').val();
+
+  if(searchTerm.length == 0) {
+    return;
+  }
+
+  var api = 'http://www.mattbowytz.com/simple_api.json?data=all';
+  var api2 = 'http://www.mattbowytz.com/simple_api.json?data=comics';
+
+  var listOutput = '';
+
+  $.ajax({
+    dataType: 'json',
+    url: api,
+    success: function(data) {
+      $.each(data.data, function(index, column) {
+        $.each(column, function(index2, value) {
+          if(value.substring(0, searchTerm.length) == searchTerm) {
+            listOutput += '<li> <a target="_blank" href="http://www.google.com/#q=' + value + '">' + value + '</a></li>';
+          }
+        });
+      });
+      $.ajax({
+        dataType: 'json',
+        url: api2,
+        success: function(data) {
+          $.each(data.data, function(index3, value2) {
+            if(value2.substring(0, searchTerm.length) == searchTerm) {
+              listOutput += '<li> <a target="_blank" href="http://www.google.com/#q=' + value2 + '">' + value2 + '</a></li>';
+              console.log(listOutput);
+            }
+          });
+          $('#results').html(listOutput);
+        }
+      });
+      $('#results').html(listOutput);
+    }
+  });
+
+});

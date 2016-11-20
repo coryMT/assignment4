@@ -96,3 +96,7 @@ input:-moz-placeholder {
   line-height: 45px;
   text-align: center;
 }
+
+ul {
+  list-style-type: none;
+}
