@@ -97,6 +97,21 @@ input:-moz-placeholder {
   text-align: center;
 }
 
-ul {
+a {
+  text-decoration: none;
+}
+
+.notEmpty {
   list-style-type: none;
+  padding-left: 0;
+  border: 1px solid #888;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px #888;
+}
+
+li {
+  padding: 5px;
+  color: #333;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 16px;
 }

@@ -22,6 +22,7 @@ $('#searchField').keyup(function() {
   var searchTerm = $('#searchField').val();
 
   if(searchTerm.length == 0) {
+    $('#results').removeClass('notEmpty');
     return;
   }
 
@@ -36,7 +37,7 @@ $('#searchField').keyup(function() {
     success: function(data) {
       $.each(data.data, function(index, column) {
         $.each(column, function(index2, value) {
-          if(value.substring(0, searchTerm.length) == searchTerm) {
+          if(value.substring(0, searchTerm.length).toLowerCase() == searchTerm.toLowerCase()) {
             listOutput += '<li> <a target="_blank" href="http://www.google.com/#q=' + value + '">' + value + '</a></li>';
           }
         });
@@ -46,15 +47,27 @@ $('#searchField').keyup(function() {
         url: api2,
         success: function(data) {
           $.each(data.data, function(index3, value2) {
-            if(value2.substring(0, searchTerm.length) == searchTerm) {
+            if(value2.substring(0, searchTerm.length).toLowerCase() == searchTerm.toLowerCase()) {
               listOutput += '<li> <a target="_blank" href="http://www.google.com/#q=' + value2 + '">' + value2 + '</a></li>';
               console.log(listOutput);
             }
           });
           $('#results').html(listOutput);
+
+          if($('#results').children().length < 1) {
+            $('#results').removeClass('notEmpty');
+          } else {
+            $('#results').addClass('notEmpty');
+          }
         }
       });
       $('#results').html(listOutput);
+
+      if($('#results').children().length < 1) {
+        $('#results').removeClass('notEmpty');
+      } else {
+        $('#results').addClass('notEmpty');
+      }
     }
   });
 
